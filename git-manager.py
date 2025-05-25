@@ -304,6 +304,7 @@ def remote_management():
             "Удалить удалённый",
             "Получить изменения (pull)",
             "Отправить изменения (push)",
+            "Ветки на удалённом GIT",
             "Вернуться в главное меню"
         ]
         selected = display_menu(options, "\nУдалённые репозитории:", footer, selected)
@@ -333,6 +334,9 @@ def remote_management():
             footer = run_command(f"git push origin {branch}")
 
         elif selected == 5:
+            footer = run_command("git ls-remote --heads origin")
+
+        elif selected == 6:
             return footer
 
 
