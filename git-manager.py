@@ -310,19 +310,28 @@ def remote_management():
 
         if selected == 0:
             footer = run_command("git remote -v")
+
         elif selected == 1:
             name = input("Введите имя (например: origin): ").strip()
             url = input("Введите URL (например: https://github.com/user/repo.git): ").strip()
             footer = run_command(f"git remote add {name} {url}")
+
         elif selected == 2:
             name = input("Имя удалённого для удаления: ").strip()
             footer = run_command(f"git remote remove {name}")
+
         elif selected == 3:
-            branch = input("Ветка (по умолчанию main): ").strip() or "main"
+            branch = run_command("git branch --show-current").strip()
+            if not branch:
+                branch = input("Введите имя ветки (по умолчанию main): ").strip() or "main"
             footer = run_command(f"git pull origin {branch} --allow-unrelated-histories")
+
         elif selected == 4:
-            branch = input("Ветка (по умолчанию main): ").strip() or "main"
+            branch = run_command("git branch --show-current").strip()
+            if not branch:
+                branch = input("Введите имя ветки (по умолчанию main): ").strip() or "main"
             footer = run_command(f"git push origin {branch}")
+
         elif selected == 5:
             return footer
 
@@ -396,3 +405,4 @@ def main_menu():
 
 if __name__ == "__main__":
     main_menu()
+
